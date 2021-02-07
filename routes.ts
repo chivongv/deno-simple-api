@@ -1,4 +1,4 @@
-import { Router, v4 } from "./deps.ts";
+import { Router, uuidv4 } from "./deps.ts";
 import { products } from "./data.ts";
 import { Product } from "./types.ts";
 
@@ -49,7 +49,7 @@ router.post("/api/v1/products", async ({ request, response }) => {
   const data = await result.value;
   const product: Product = {
     ...data,
-    id: v4.generate(),
+    id: uuidv4.generate(),
   };
 
   db.push(product);
