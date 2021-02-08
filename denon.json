@@ -3,8 +3,12 @@
   "scripts": {
     "start": {
       "cmd": "deno run server.ts",
-      "desc": "run my server.ts file",
+      "desc": "run server.ts file",
       "allow": ["env", "net"]
+    },
+    "test": {
+      "cmd": "deno test -A --unstable --location http://localhost:8000",
+      "desc": "run tests"
     }
   }
 }
