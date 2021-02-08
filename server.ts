@@ -1,7 +1,7 @@
 import { Application } from "./deps.ts";
 import router from "./routes.ts";
-const app = new Application();
 
+const app = new Application();
 const port = Number(Deno.env.get("port")) || 5000;
 
 app.use(router.routes());
