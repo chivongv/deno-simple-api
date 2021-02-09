@@ -4,7 +4,7 @@
     "start": {
       "cmd": "deno run server.ts",
       "desc": "run server.ts file",
-      "allow": ["env", "net"]
+      "allow": ["env", "net", "read"]
     },
     "test": {
       "cmd": "deno test -A --unstable --location http://localhost:8000",
