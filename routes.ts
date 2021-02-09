@@ -1,104 +1,29 @@
-import { Router, uuidv4 } from "./deps.ts";
+import { Router } from "./deps.ts";
 import { products } from "./data.ts";
-import { Product } from "./types.ts";
+import {
+  addProduct,
+  deleteProduct,
+  getProduct,
+  getProducts,
+  updatedProduct,
+} from "./controllers/productController.ts";
 
 const router = new Router();
 let db = [...products];
 
 // Get all products
-router.get("/api/v1/products", ({ response }) => {
-  response.status = 200;
-  response.body = {
-    success: true,
-    data: db,
-  };
-});
+router.get("/api/v1/products", getProducts);
 
 // Get single product
-router.get("/api/v1/products/:id", ({ params, response }) => {
-  const { id } = params;
-  const product = db.find((p) => p.id === id);
-
-  if (product) {
-    response.status = 200;
-    response.body = {
-      success: true,
-      data: product,
-    };
-  } else {
-    response.status = 404;
-    response.body = {
-      success: false,
-      error: "No product found.",
-    };
-  }
-});
+router.get("/api/v1/products/:id", getProduct);
 
 // Add product
-router.post("/api/v1/products", async ({ request, response }) => {
-  const result = request.body();
-
-  if (!request.hasBody || result.type !== "json") {
-    response.status = 400;
-    response.body = {
-      success: false,
-      error: "Invalid request",
-    };
-  }
-
-  const data = await result.value;
-  const product: Product = {
-    ...data,
-    id: uuidv4.generate(),
-  };
-
-  db.push(product);
-
-  response.status = 201;
-  response.body = {
-    success: true,
-    data: product,
-  };
-});
+router.post("/api/v1/products", addProduct);
 
 // Update product
-router.put("/api/v1/products/:id", async ({ params, request, response }) => {
-  const { id } = params;
-  const result = request.body();
-  const productIndex = db.findIndex((p) => p.id === id);
-  const product = db[productIndex];
-
-  if (!request.hasBody || result.type !== "json") {
-    response.status = 400;
-    response.body = {
-      success: false,
-      error: "Invalid request",
-    };
-  }
-
-  if (product) {
-    const newData = await result.value;
-    const updatedProduct = {
-      ...product,
-      ...newData,
-    };
-    db[productIndex] = updatedProduct;
-    response.status = 200;
-    response.body = {
-      success: true,
-      data: updatedProduct,
-    };
-  }
-});
+router.put("/api/v1/products/:id", updatedProduct);
 
 // Delete product
-router.delete("/api/v1/products/:id", ({ params, response }) => {
-  const { id } = params;
-  db = db.filter((p) => p.id !== id);
-  response.body = {
-    success: true,
-    data: db,
-  };
-});
+router.delete("/api/v1/products/:id", deleteProduct);
 
 export default router;
