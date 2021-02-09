@@ -1,5 +1,5 @@
 import { Router } from "./deps.ts";
-import { products } from "./data.ts";
+import { products } from "./models/data.ts";
 import {
   addProduct,
   deleteProduct,

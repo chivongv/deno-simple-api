@@ -1,5 +1,5 @@
 import { RouterContext, uuidv4 } from "../deps.ts";
-import { products } from "../data.ts";
+import { products } from "../models/data.ts";
 import { Product } from "../types/productType.ts";
 
 let db = [...products];

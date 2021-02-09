@@ -1,6 +1,6 @@
 import { Application, superoak } from "../deps.ts";
 import router from "../routes.ts";
-import { products } from "../data.ts";
+import { products } from "../models/data.ts";
 
 Deno.test("Should return products with status code 200", async () => {
   const expectedResponse = {
